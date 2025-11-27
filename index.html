@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wijndeling - Wandelen & Wijn Proeven</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #6b1f3d 0%, #8b2f4a 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero {
+            padding: 70px 50px 50px;
+            text-align: center;
+            background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%);
+        }
+
+        .logo {
+            font-size: 48px;
+            font-weight: bold;
+            background: linear-gradient(135deg, #6b1f3d 0%, #a0244d 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 25px;
+            letter-spacing: 2px;
+        }
+
+        .headline {
+            font-size: 32px;
+            color: #333;
+            margin-bottom: 25px;
+            font-weight: bold;
+            line-height: 1.3;
+        }
+
+        .description {
+            font-size: 20px;
+            color: #555;
+            line-height: 1.7;
+            max-width: 700px;
+            margin: 0 auto 20px;
+        }
+
+        .how-it-works {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .step {
+            flex: 1;
+            min-width: 200px;
+            max-width: 250px;
+            text-align: center;
+        }
+
+        .step-icon {
+            font-size: 56px;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #6b1f3d 0%, #a0244d 100%);
+            color: white;
+            border-radius: 50%;
+            font-weight: bold;
+            line-height: 32px;
+            margin-bottom: 10px;
+        }
+
+        .step h3 {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .step p {
+            font-size: 15px;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .newsletter {
+            padding: 70px 50px;
+            background: linear-gradient(135deg, #6b1f3d 0%, #8b2f4a 100%);
+            text-align: center;
+        }
+
+        .newsletter h2 {
+            font-size: 38px;
+            color: white;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .newsletter p {
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.95);
+            margin-bottom: 45px;
+            line-height: 1.6;
+        }
+
+        .form-container {
+            max-width: 550px;
+            margin: 0 auto;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        input[type="email"],
+        input[type="text"] {
+            width: 100%;
+            padding: 20px 26px;
+            font-size: 17px;
+            border: none;
+            border-radius: 12px;
+            background: white;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        input:focus {
+            outline: none;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        input::placeholder {
+            color: #999;
+        }
+
+        button {
+            width: 100%;
+            padding: 20px 26px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #6b1f3d;
+            background: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .success-message {
+            display: none;
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            color: white;
+            font-size: 18px;
+            margin-top: 20px;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .benefits {
+            padding: 50px;
+            background: white;
+            text-align: center;
+        }
+
+        .benefits h3 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .benefit-list {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 17px;
+            color: #555;
+        }
+
+        .benefit-item span {
+            font-size: 24px;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 50px 30px 40px;
+            }
+
+            .logo {
+                font-size: 36px;
+            }
+
+            .headline {
+                font-size: 26px;
+            }
+
+            .description {
+                font-size: 18px;
+            }
+
+            .how-it-works {
+                gap: 30px;
+            }
+
+            .newsletter {
+                padding: 50px 30px;
+            }
+
+            .newsletter h2 {
+                font-size: 30px;
+            }
+
+            .newsletter p {
+                font-size: 18px;
+            }
+
+            .benefits {
+                padding: 40px 30px;
+            }
+
+            .benefit-list {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="hero">
+            <div class="logo">🍷 Wijndeling</div>
+            <h1 class="headline">Wandelen met Wijn.<br>Proeven met Plezier.</h1>
+            <p class="description">
+                Ontdek unieke wandelroutes door de mooiste landschappen, gecombineerd met 
+                zorgvuldig geselecteerde wijnen die je onderweg kunt proeven. Elk traject 
+                vertelt een verhaal, elke wijn verrijkt de ervaring.
+            </p>
+
+            <div class="how-it-works">
+                <div class="step">
+                    <span class="step-icon">🗺️</span>
+                    <div class="step-number">1</div>
+                    <h3>Kies je Route</h3>
+                    <p>Van korte stadswandelingen tot lange natuurtochten</p>
+                </div>
+                <div class="step">
+                    <span class="step-icon">🍇</span>
+                    <div class="step-number">2</div>
+                    <h3>Ontvang je Wijn</h3>
+                    <p>Perfect afgestemd op je gekozen wandeling</p>
+                </div>
+                <div class="step">
+                    <span class="step-icon">🥾</span>
+                    <div class="step-number">3</div>
+                    <h3>Wandel & Proef</h3>
+                    <p>Geniet onderweg van natuur én smaak</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="newsletter">
+            <h2>Start je Eerste WijnWandeling</h2>
+            <p>Schrijf je nu in en ontvang onze nieuwste routes, wijnkeuzes en exclusieve tips direct in je mailbox</p>
+            
+            <div class="form-container">
+                <div id="signupForm">
+                    <div class="input-group">
+                        <input type="text" id="name" placeholder="Je naam" required>
+                    </div>
+                    <div class="input-group">
+                        <input type="email" id="email" placeholder="Je e-mailadres" required>
+                    </div>
+                    <button onclick="handleSubmit()">Ja, ik wil wandelen met wijn!</button>
+                </div>
+                <div id="successMessage" class="success-message">
+                    ✓ Welkom bij Wijndeling! Je ontvangt binnenkort je eerste wandelroute en wijnselectie.
+                </div>
+            </div>
+        </div>
+
+        <div class="benefits">
+            <h3>Wat krijg je als lid?</h3>
+            <div class="benefit-list">
+                <div class="benefit-item">
+                    <span>📍</span>
+                    <span>Gedetailleerde wandelkaarten</span>
+                </div>
+                <div class="benefit-item">
+                    <span>🍷</span>
+                    <span>Gepersonaliseerde wijnaanbevelingen</span>
+                </div>
+                <div class="benefit-item">
+                    <span>🎁</span>
+                    <span>Exclusieve ledenvoordelen</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function handleSubmit() {
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+
+            if (name && email && email.includes('@')) {
+                document.getElementById('signupForm').style.display = 'none';
+                document.getElementById('successMessage').style.display = 'block';
+                
+                console.log('Signup:', { name, email, timestamp: new Date() });
+            } else {
+                alert('Vul alsjeblieft je naam en een geldig e-mailadres in.');
+            }
+        }
+
+        document.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const form = document.getElementById('signupForm');
+                if (form.style.display !== 'none') {
+                    handleSubmit();
+                }
+            }
+        });
+    </script>
+</body>
+</html>
