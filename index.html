@@ -365,19 +365,49 @@
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script>
+        // Initialize EmailJS
+        (function(){
+            emailjs.init("DpYwlcH1MwVd3Zbz8");
+        })();
+
         function handleSubmit() {
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
+            const button = document.querySelector('button');
 
-            if (name && email && email.includes('@')) {
-                document.getElementById('signupForm').style.display = 'none';
-                document.getElementById('successMessage').style.display = 'block';
-                
-                console.log('Signup:', { name, email, timestamp: new Date() });
-            } else {
+            if (!name || !email || !email.includes('@')) {
                 alert('Vul alsjeblieft je naam en een geldig e-mailadres in.');
+                return;
             }
+
+            // Disable button and show loading state
+            button.disabled = true;
+            button.textContent = 'Bezig met verzenden...';
+
+            // Prepare template parameters
+            const templateParams = {
+                from_name: name,
+                from_email: email,
+                submission_date: new Date().toLocaleString('nl-BE', {
+                    dateStyle: 'full',
+                    timeStyle: 'short'
+                })
+            };
+
+            // Send email via EmailJS
+            emailjs.send('service_jm7dg8v', 'template_33hm5p7', templateParams)
+                .then(function(response) {
+                    console.log('SUCCESS!', response.status, response.text);
+                    document.getElementById('signupForm').style.display = 'none';
+                    document.getElementById('successMessage').style.display = 'block';
+                }, function(error) {
+                    console.error('FAILED...', error);
+                    alert('Er ging iets mis bij het versturen. Probeer het later opnieuw.');
+                    button.disabled = false;
+                    button.textContent = 'Ja, ik wil wandelen met wijn!';
+                });
         }
 
         document.addEventListener('keypress', function(e) {
